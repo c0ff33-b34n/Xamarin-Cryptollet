@@ -1,8 +1,4 @@
-﻿using Cryptollet.Services;
-using Cryptollet.Views;
-using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 
 namespace Cryptollet
 {
@@ -12,8 +8,6 @@ namespace Cryptollet
         public App()
         {
             InitializeComponent();
-
-            DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
         }
 
