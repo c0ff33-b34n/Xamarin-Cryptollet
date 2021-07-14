@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       Title="Cryptollet"
-       x:Class="Cryptollet.AppShell">
+       xmlns:wallet="clr-namespace:Cryptollet.Modules.Wallet"
+       xmlns:assets="clr-namespace:Cryptollet.Modules.Assets"
+       xmlns:transactions="clr-namespace:Cryptollet.Modules.Transactions"
+       Title="Cryptollet" x:Class="Cryptollet.AppShell">
 
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="Portfolio"
+                      ContentTemplate="{DataTemplate wallet:WalletView}" />
+    </FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="Assets"
+                      ContentTemplate="{DataTemplate assets:AssetsView}" />
+    </FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="Transactions"
+                      ContentTemplate="{DataTemplate transactions:TransactionsView }" />
+    </FlyoutItem>
+    <MenuItem Text="Logout" Command="{Binding SignOutCommand}" />
 </Shell>
