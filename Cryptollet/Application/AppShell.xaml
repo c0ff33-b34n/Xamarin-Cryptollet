@@ -4,8 +4,14 @@
        xmlns:wallet="clr-namespace:Cryptollet.Modules.Wallet"
        xmlns:assets="clr-namespace:Cryptollet.Modules.Assets"
        xmlns:transactions="clr-namespace:Cryptollet.Modules.Transactions"
-       Title="Cryptollet" x:Class="Cryptollet.AppShell">
-
+       xmlns:controls="clr-namespace:Cryptollet.Common.Controls"
+       Title="Cryptollet" x:Class="Cryptollet.AppShell"
+       FlyoutBackgroundColor="LightSlateGray"
+       FlyoutHeaderBehavior="CollapseOnScroll"
+       FlyoutVerticalScrollMode="Enabled">
+    <Shell.FlyoutHeader>
+        <controls:FlyoutHeader />
+    </Shell.FlyoutHeader>
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent Title="Portfolio"
                       ContentTemplate="{DataTemplate wallet:WalletView}" />
