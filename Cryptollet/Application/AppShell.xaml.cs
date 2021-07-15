@@ -1,4 +1,6 @@
 ﻿
+using Autofac;
+
 namespace Cryptollet
 {
     public partial class AppShell : Xamarin.Forms.Shell
@@ -6,7 +8,7 @@ namespace Cryptollet
         public AppShell()
         {
             InitializeComponent();
-            BindingContext = new AppShellViewModel();
+            BindingContext = App.Container.Resolve<AppShellViewModel>();
         }
 
     }
