@@ -20,15 +20,30 @@ namespace Cryptollet.Modules.Wallet
         public WalletViewModel(IWalletController walletController)
         {
             _walletController = walletController;
+            Assets = new ObservableCollection<Coin>();
+            LatestTransactions = new ObservableCollection<Transaction>();
         }
 
         public override async Task InitializeAsync(object parameter)
         {
-            var transactions = await _walletController.GetTransactions();
+            bool reload = (bool)parameter;
+            if(IsBusy)
+            {
+                return;
+            }
+            IsBusy = true;
+            IsRefreshing = true;
+            var transactions = await _walletController.GetTransactions(reload);
             LatestTransactions = new ObservableCollection<Transaction>(transactions.Take(5));
-            var assets = await _walletController.GetCoins();
+
+            var assets = await _walletController.GetCoins(reload);
             Assets = new ObservableCollection<Coin>(assets.Take(3));
             BuildChart(assets);
+            PortfolioValue = assets.Sum(x => x.DollarValue);
+
+            IsRefreshing = false;
+            IsBusy = false;
+
         }
 
         private void BuildChart(List<Coin> assets)
@@ -98,7 +113,7 @@ namespace Cryptollet.Modules.Wallet
                 {
                     return;
                 }
-
+                HasTransactions = _latestTransactions.Count > 0;
                 if (_latestTransactions.Count == 0)
                 {
                     TransactionsHeight = 430;
@@ -114,6 +129,29 @@ namespace Cryptollet.Modules.Wallet
         {
             // TODO
         }
+
+        private decimal _portfolioValue;
+        public decimal PortfolioValue
+        {
+            get => _portfolioValue;
+            set { SetProperty(ref _portfolioValue, value); }
+        }
+
+        private bool _hasTransactions;
+        public bool HasTransactions
+        {
+            get => _hasTransactions;
+            set { SetProperty(ref _hasTransactions, value); }
+        }
+
+        private bool _isRefreshing;
+        public bool IsRefreshing
+        {
+            get => _isRefreshing;
+            set { SetProperty(ref _isRefreshing, value); }
+        }
+
+        public ICommand RefreshAssetsCommand { get => new Command(async () => await InitializeAsync(true)); }
 
     }
 }

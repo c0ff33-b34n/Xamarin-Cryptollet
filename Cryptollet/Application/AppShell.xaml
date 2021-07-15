@@ -28,11 +28,13 @@
     <Shell.FlyoutHeader>
         <controls:FlyoutHeader />
     </Shell.FlyoutHeader>
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems"
+                Style="{StaticResource BaseStyle}">
         <ShellContent Title="Portfolio"
                       ContentTemplate="{DataTemplate wallet:WalletView}" />
     </FlyoutItem>
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems"
+                Style="{StaticResource BaseStyle}">
         <ShellContent Title="Assets"
                       ContentTemplate="{DataTemplate assets:AssetsView}" />
     </FlyoutItem>
