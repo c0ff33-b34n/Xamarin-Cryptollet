@@ -22,6 +22,29 @@
                                         HeightRequest="{Binding CoinsHeight}"
                                         ItemTemplate="{StaticResource AssetCell}"
                                         VerticalScrollBarVisibility="Never" />
+                        <CollectionView ItemsSource="{Binding LatestTransactions}"
+                                    SelectionMode="Single"
+                                    HeightRequest="{Binding TransactionsHeight}"
+                                    VerticalScrollBarVisibility="Never"
+                                    ItemTemplate="{StaticResource TransactionCell}" >
+                            <CollectionView.EmptyView>
+                                <StackLayout>
+                                    <Image Source="emptyview.png"
+                                HeightRequest="260"
+                                WidthRequest="260"
+                                Margin="20"
+                                Aspect="AspectFit"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"/>
+                                    <Button Text="No transactions... Create one now"
+                                Style="{StaticResource NoBackgroundSmallButton}"
+                                Command="{Binding AddNewTransactionCommand}"
+                                FontSize="17"
+                                FontAttributes="Bold"
+                                Margin="20"/>
+                                </StackLayout>
+                            </CollectionView.EmptyView>
+                        </CollectionView>
                     </StackLayout>
                 </StackLayout>
             </ScrollView>

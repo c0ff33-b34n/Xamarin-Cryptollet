@@ -9,6 +9,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace Cryptollet.Modules.Wallet
 {
@@ -22,6 +24,8 @@ namespace Cryptollet.Modules.Wallet
 
         public override async Task InitializeAsync(object parameter)
         {
+            var transactions = await _walletController.GetTransactions();
+            LatestTransactions = new ObservableCollection<Transaction>(transactions.Take(5));
             var assets = await _walletController.GetCoins();
             Assets = new ObservableCollection<Coin>(assets.Take(3));
             BuildChart(assets);
@@ -74,6 +78,41 @@ namespace Cryptollet.Modules.Wallet
                 }
                 CoinsHeight = _assets.Count * 85;
             }
+        }
+
+        private int _transactionsHeight;
+        public int TransactionsHeight
+        {
+            get => _transactionsHeight;
+            set { SetProperty(ref _transactionsHeight, value); }
+        }
+
+        private ObservableCollection<Transaction> _latestTransactions;
+        public ObservableCollection<Transaction> LatestTransactions
+        {
+            get => _latestTransactions;
+            set
+            {
+                SetProperty(ref _latestTransactions, value);
+                if (_latestTransactions == null)
+                {
+                    return;
+                }
+
+                if (_latestTransactions.Count == 0)
+                {
+                    TransactionsHeight = 430;
+                    return;
+                }
+                TransactionsHeight = _latestTransactions.Count * 85;
+            }
+        }
+
+        public ICommand AddNewTransactionCommand { get => new Command(async () => await AddNewTransaction()); }
+
+        private async Task AddNewTransaction()
+        {
+            // TODO
         }
 
     }
