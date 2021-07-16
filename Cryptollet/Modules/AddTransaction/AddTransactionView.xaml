@@ -1,11 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Cryptollet.Common.Converters"
              x:Class="Cryptollet.Modules.AddTransaction.AddTransactionView"
              Shell.TabBarIsVisible="False">
+    <ContentPage.Resources>
+        <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Add new transaction" />
+            <Label Text="Transaction Type"
+               Padding="10,16,10,0"/>
+            <RadioButton Content="Deposit"
+                         IsChecked="{Binding IsDeposit}"
+                         Margin="16,0,0,0" />
+            <RadioButton Content="Withdraw"
+                         IsChecked="{Binding IsDeposit, Converter={StaticResource InverseBoolConverter}, Mode=OneWay}"
+                         Margin="16,0,0,0" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

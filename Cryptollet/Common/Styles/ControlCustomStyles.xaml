@@ -39,14 +39,15 @@
     <Style TargetType="RadioButton">
     <Setter Property="VisualStateManager.VisualStateGroups">
         <VisualStateGroupList>
-            <VisualStateGroup x:Name="CommonStates">
-                <VisualState x:Name="Normal">
+            <VisualStateGroup x:Name="CheckedStates">
+                <VisualState x:Name="Unchecked">
                     <VisualState.Setters>
+                        <Setter Property="TextColor" Value="DarkGray" />
                         <Setter Property="TextColor" Value="DarkGray" />
                         <Setter Property="Opacity" Value="0.8" />
                     </VisualState.Setters>
                 </VisualState>
-                <VisualState x:Name="IsChecked">
+                <VisualState x:Name="Checked">
                     <VisualState.Setters>
                         <Setter Property="TextColor" Value="{StaticResource PrimaryBlue}" />
                         <Setter Property="Opacity" Value="1" />
