@@ -1,6 +1,8 @@
 ﻿using Cryptollet.Common.Base;
 using Cryptollet.Common.Controllers;
 using Cryptollet.Common.Models;
+using Cryptollet.Common.Navigation;
+using Cryptollet.Modules.AddTransaction;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,11 +17,14 @@ namespace Cryptollet.Modules.Transactions
     public class TransactionsViewModel : BaseViewModel
     {
         private IWalletController _walletController;
+        private INavigationService _navigationService; 
         private string _filter = string.Empty;
 
-        public TransactionsViewModel(IWalletController walletController)
+        public TransactionsViewModel(IWalletController walletController,
+                                     INavigationService navigationService)
         {
             _walletController = walletController;
+            _navigationService = navigationService;
             Transactions = new ObservableCollection<Transaction>();
         }
 
@@ -80,7 +85,7 @@ namespace Cryptollet.Modules.Transactions
 
         private async Task PerformNavigation()
         {
-            await Shell.Current.GoToAsync("addtransactions");
+            await _navigationService.PushAsync<AddTransactionViewModel>();
         }
     }
 }
