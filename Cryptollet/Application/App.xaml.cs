@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using Cryptollet.Common.Database;
+using Cryptollet.Common.Models;
 using System.Reflection;
 using Xamarin.Forms;
 
@@ -19,8 +21,7 @@ namespace Cryptollet
             builder.RegisterAssemblyTypes(dataAccess)
                    .AsImplementedInterfaces()
                    .AsSelf();
-            //TODO - register repositories if you use them
-            //builder.RegisterType<Repository<User>>().As<IRepository<User>>();
+            builder.RegisterType<Repository<Transaction>>().As<IRepository<Transaction>>();
 
             //get container
             Container = builder.Build();
