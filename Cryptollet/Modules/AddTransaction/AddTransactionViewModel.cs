@@ -1,5 +1,6 @@
 ﻿using Cryptollet.Common.Base;
 using Cryptollet.Common.Models;
+using Cryptollet.Common.Validation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +17,8 @@ namespace Cryptollet.Modules.AddTransaction
         public AddTransactionViewModel()
         {
             AvailableAssets = new ObservableCollection<Coin>(Coin.GetAvailableAssets());
+            _amount = new ValidatableObject<decimal>();
+            _amount.Validations.Add(new NonNegativeRule { ValidationMessage = "Please enter amount greater than zero." });
         }
 
         private bool _isDeposit;
@@ -55,10 +58,22 @@ namespace Cryptollet.Modules.AddTransaction
             set { SetProperty(ref _transactionDate, value); }
         }
 
+        private ValidatableObject<decimal> _amount;
+        public ValidatableObject<decimal> Amount
+        {
+            get => _amount;
+            set { SetProperty(ref _amount, value); }
+        }
+
         public ICommand AddTransactionCommand { get => new Command(async () => await AddTransaction()); }
 
         private async Task AddTransaction()
         {
+            _amount.Validate();
+            if (!_amount.IsValid)
+            {
+                return;
+            }
 
         }
     }
