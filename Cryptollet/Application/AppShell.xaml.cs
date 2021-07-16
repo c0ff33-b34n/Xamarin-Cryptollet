@@ -1,5 +1,7 @@
 ﻿
 using Autofac;
+using Cryptollet.Modules.AddTransaction;
+using Xamarin.Forms;
 
 namespace Cryptollet
 {
@@ -9,6 +11,8 @@ namespace Cryptollet
         {
             InitializeComponent();
             BindingContext = App.Container.Resolve<AppShellViewModel>();
+
+            Routing.RegisterRoute("addtransactions", typeof(AddTransactionView));
         }
 
     }
