@@ -57,11 +57,13 @@ namespace Cryptollet.Modules.Wallet
                 {
                     TextColor = whiteColor,
                     ValueLabel = item.Name,
-                    Color = SKColor.Parse(colors.First(x => x.Symbol == item.Symbol).HexColor)
+                    Color = SKColor.Parse(colors.First(x => x.Symbol == item.Symbol).HexColor),
+                    ValueLabelColor = SKColor.Parse(colors.First(x => x.Symbol == item.Symbol).HexColor)
                 });
             }
             var chart = new DonutChart { Entries = entries };
             chart.BackgroundColor = whiteColor;
+            chart.LabelTextSize = 30;
             PortfolioView = chart;
         }
 
