@@ -1,6 +1,8 @@
-﻿using Cryptollet.Common.Models;
+﻿using Cryptollet.Common.Database;
+using Cryptollet.Common.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +15,8 @@ namespace Cryptollet.Common.Controllers
     }
     public class WalletController : IWalletController
     {
+        private IRepository<Transaction> _transactionRepository;
+
         private List<Coin> _defaultAssets = new List<Coin>
         {
                 new Coin
@@ -38,52 +42,28 @@ namespace Cryptollet.Common.Controllers
                 },
         };
 
+        public WalletController(IRepository<Transaction> transactionRepository)
+        {
+            _transactionRepository = transactionRepository;
+        }
+
         public Task<List<Coin>> GetCoins(bool forceReload = false)
         {
             return Task.FromResult(_defaultAssets);
         }
 
-        public Task<List<Transaction>> GetTransactions(bool forceReload = false)
+        public async Task<List<Transaction>> GetTransactions(bool forceReload = false)
         {
-            return Task.FromResult(new List<Transaction>
+            var transactions = await _transactionRepository.GetAllAsync();
+            transactions = transactions.OrderByDescending(x => x.TransactionDate).ToList();
+            transactions.ForEach(x =>
             {
-                new Transaction
-                {
-                    Amount = 1,
-                    DollarValue = 9500,
-                    Status = Constants.TRANSACTION_DEPOSITED,
-                    StatusImageSource = Constants.TRANSACTION_DEPOSITED_IMAGE,
-                    Symbol = "BTC",
-                    TransactionDate = DateTime.Now
-                },
-                new Transaction
-                {
-                    Amount = 2,
-                    DollarValue = 600,
-                    Status = Constants.TRANSACTION_DEPOSITED,
-                    StatusImageSource = Constants.TRANSACTION_DEPOSITED_IMAGE,
-                    Symbol = "ETM",
-                    TransactionDate = DateTime.Now
-                },
-                new Transaction
-                {
-                    Amount = 3,
-                    DollarValue = 150,
-                    Status = Constants.TRANSACTION_DEPOSITED,
-                    StatusImageSource = Constants.TRANSACTION_DEPOSITED_IMAGE,
-                    Symbol = "LTC",
-                    TransactionDate = DateTime.Now
-                },
-                new Transaction
-                {
-                    Amount = 1,
-                    DollarValue = 40,
-                    Status = Constants.TRANSACTION_WITHDRAWN,
-                    StatusImageSource = Constants.TRANSACTION_WITHDRAWN_IMAGE,
-                    Symbol = "LTC",
-                    TransactionDate = DateTime.Now
-                }
+                x.StatusImageSource = x.Status == Constants.TRANSACTION_DEPOSITED ?
+                                                Constants.TRANSACTION_DEPOSITED_IMAGE :
+                                                Constants.TRANSACTION_WITHDRAWN_IMAGE;
+                x.DollarValue = x.Amount * 200;
             });
+            return transactions;
         }
     }
 }
