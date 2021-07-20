@@ -1,6 +1,8 @@
 ﻿using Cryptollet.Common.Base;
 using Cryptollet.Common.Controllers;
 using Cryptollet.Common.Models;
+using Cryptollet.Common.Navigation;
+using Cryptollet.Modules.AddTransaction;
 using Microcharts;
 using SkiaSharp;
 using System;
@@ -17,9 +19,11 @@ namespace Cryptollet.Modules.Wallet
     public class WalletViewModel : BaseViewModel
     {
         private IWalletController _walletController;
-        public WalletViewModel(IWalletController walletController)
+        private INavigationService _navigationService; 
+        public WalletViewModel(IWalletController walletController, INavigationService navigationService)
         {
             _walletController = walletController;
+            _navigationService = navigationService;
             Assets = new ObservableCollection<Coin>();
             LatestTransactions = new ObservableCollection<Transaction>();
         }
@@ -129,7 +133,7 @@ namespace Cryptollet.Modules.Wallet
 
         private async Task AddNewTransaction()
         {
-            // TODO
+            await _navigationService.PushAsync<AddTransactionViewModel>();
         }
 
         private decimal _portfolioValue;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Autofac;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,13 @@ namespace Cryptollet.Modules.Assets
         public AssetsView()
         {
             InitializeComponent();
+            BindingContext = App.Container.Resolve<AssetsViewModel>();
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await (BindingContext as AssetsViewModel).InitializeAsync(null);
         }
     }
 }
