@@ -19,5 +19,11 @@ namespace Cryptollet.Modules.AddTransaction
             InitializeComponent();
             BindingContext = App.Container.Resolve<AddTransactionViewModel>();
         }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await (BindingContext as AddTransactionViewModel).InitializeAsync(null);
+        }
     }
 }

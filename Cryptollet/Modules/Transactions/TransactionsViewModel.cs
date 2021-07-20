@@ -73,7 +73,7 @@ namespace Cryptollet.Modules.Transactions
 
         private async Task TransactionSelected()
         {
-            await _navigationService.PushAsync<AddTransactionViewModel>("id=1");
+            await _navigationService.PushAsync<AddTransactionViewModel>($"id={SelectedTransaction.Id}");
         }
 
         private async Task RefreshTransactions()
