@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Cryptollet.Common.Database;
 using Cryptollet.Common.Models;
+using Cryptollet.Modules.Loading;
 using System.Reflection;
 using Xamarin.Forms;
 
@@ -26,7 +27,7 @@ namespace Cryptollet
             //get container
             Container = builder.Build();
             //set first page
-            MainPage = new AppShell();
+            MainPage = Container.Resolve<LoadingView>();
         }
     }
 }
