@@ -26,12 +26,13 @@ namespace Cryptollet.Common.Network
             var url = Constants.CRYPTO_API + PRICES_ENDPOINT;
             var result = await _networkService.GetAsync<Dictionary<string, Dictionary<string, double?>>>(url);
             var coins = Coin.GetAvailableAssets();
-            foreach (var item in coins)
+            foreach (var coin in coins)
             {
-                Dictionary<string, double?> coinPrices = result[item.Name.Replace(' ', '-').ToLower()];
-                double? coinPrice = coinPrices["usd"];
-                item.Price = coinPrice.HasValue ? coinPrice.Value : 0;
+                Dictionary<string, double?> coinPrices = result[coin.Name.Replace(' ', '-').ToLower()];
+                var coinPrice = coinPrices["usd"];
+                coin.Price = coinPrice.HasValue ? coinPrice.Value : 0;
             }
+
             return coins;
         }
     }
