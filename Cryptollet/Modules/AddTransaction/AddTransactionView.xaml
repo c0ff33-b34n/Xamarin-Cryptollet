@@ -4,6 +4,9 @@
              xmlns:converters="clr-namespace:Cryptollet.Common.Converters"
              x:Class="Cryptollet.Modules.AddTransaction.AddTransactionView"
              Shell.TabBarIsVisible="False">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding GoBackCommand}" />
+    </Shell.BackButtonBehavior>
     <ContentPage.Resources>
         <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
         <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
