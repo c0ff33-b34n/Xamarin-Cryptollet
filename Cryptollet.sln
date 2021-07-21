@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryptollet.Android", "Crypt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryptollet.iOS", "Cryptollet.iOS\Cryptollet.iOS.csproj", "{4EC50A93-69EE-41AE-B693-01489DA0B2DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryptollet", "Cryptollet\Cryptollet.csproj", "{A76CA09E-3F0F-4F7F-AD29-4DC0EFF722D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryptollet", "Cryptollet\Cryptollet.csproj", "{A76CA09E-3F0F-4F7F-AD29-4DC0EFF722D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

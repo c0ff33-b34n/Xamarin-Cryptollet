@@ -23,6 +23,7 @@ namespace Cryptollet
                    .AsImplementedInterfaces()
                    .AsSelf();
             builder.RegisterType<Repository<Transaction>>().As<IRepository<Transaction>>();
+            builder.RegisterType<Repository<User>>().As<IRepository<User>>();
 
             //get container
             Container = builder.Build();
