@@ -14,8 +14,8 @@ namespace Cryptollet.Modules.Register
 {
     public class RegisterViewModel : BaseViewModel
     {
-        private INavigationService _navigationService;
-        private IRepository<User> _userRepository;
+        private readonly INavigationService _navigationService;
+        private readonly IRepository<User> _userRepository;
 
         public RegisterViewModel(INavigationService navigationService, IRepository<User> repository)
         {

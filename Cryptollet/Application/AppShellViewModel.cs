@@ -1,19 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
+using Cryptollet.Common.Base;
+using Cryptollet.Common.Navigation;
+using Cryptollet.Modules.Login;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Cryptollet
 {
     public class AppShellViewModel
     {
-        public ICommand SignOutCommand { get => new Command(async () => await SignOut());  }
+        private readonly INavigationService _navigationService;
+
+        public AppShellViewModel(INavigationService navigationService)
+        {
+            _navigationService = navigationService;
+        }
+
+        public ICommand SignOutCommand { get => new Command(async () => await SignOut()); }
 
         private async Task SignOut()
         {
-            await Shell.Current.DisplayAlert("todo", "you have been logged out.", "Ok");
+            Preferences.Remove(Constants.IS_USER_LOGGED_IN);
+            _navigationService.GoToLoginFlow();
+            await _navigationService.InsertAsRoot<LoginViewModel>();
         }
     }
 }

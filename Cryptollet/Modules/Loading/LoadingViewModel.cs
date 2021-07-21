@@ -11,7 +11,7 @@ namespace Cryptollet.Modules.Loading
 {
     public class LoadingViewModel : BaseViewModel
     {
-        private INavigationService _navigationService;
+        private readonly INavigationService _navigationService;
 
         public LoadingViewModel(INavigationService navigationService)
         {
@@ -35,7 +35,6 @@ namespace Cryptollet.Modules.Loading
 
             _navigationService.GoToLoginFlow();
             return _navigationService.InsertAsRoot<LoginViewModel>();
-            return Task.CompletedTask;
         }
     }
 }

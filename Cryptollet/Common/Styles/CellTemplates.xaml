@@ -50,7 +50,7 @@
     </DataTemplate>
 
     <!-- Transaction Cell -->
-        <DataTemplate x:Key="TransactionCell">
+    <DataTemplate x:Key="TransactionCell">
         <StackLayout>
             <Frame Margin="10,5,10,5"
                     Padding="13"
@@ -91,7 +91,7 @@
                                 <Setter Property="TextColor" Value="{StaticResource NegativeTrend}" />
                             </Trigger>
                         </Label.Triggers>
-                        </Label>
+                    </Label>
                     <Label Grid.Column="3"
                             Text="{Binding TransactionDate, StringFormat='{0:MMM dd, yyyy}'}"
                             TextColor="{StaticResource DarkGrayText}"
