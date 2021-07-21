@@ -4,7 +4,13 @@
              x:Class="Cryptollet.Modules.Login.LoginView">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Login" />
+            <StackLayout HorizontalOptions="Center"
+                         VerticalOptions="EndAndExpand"
+                         Margin="0,0,0,80">
+                <Button Style="{StaticResource NoBackgroundSmallButton}" 
+                        Text="Don't have an account? Sign Up"
+                        Command="{Binding RegisterCommand}"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
