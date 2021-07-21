@@ -10,6 +10,8 @@ namespace Cryptollet.Common.Navigation
         Task PopAsync();
         Task InsertAsRoot<TViewModel>(string parameters = null) where TViewModel : BaseViewModel;
         Task GoBackAsync();
+        void GoToMainFlow();
+        void GoToLoginFlow();
     }
 
     public class ShellRoutingService : INavigationService
@@ -42,6 +44,16 @@ namespace Cryptollet.Common.Navigation
                 route += $"?{parameters}";
             }
             return Shell.Current.GoToAsync(route);
+        }
+
+        public void GoToMainFlow()
+        {
+            Application.Current.MainPage = new AppShell();
+        }
+
+        public void GoToLoginFlow()
+        {
+            Application.Current.MainPage = new LoginShell();
         }
     }
 }
